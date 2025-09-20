@@ -148,6 +148,28 @@ st.markdown("""
         padding: 1rem;
         margin: 0.5rem 0;
     }
+    
+    /* Navigation button styling */
+    .stButton > button {
+        background: linear-gradient(90deg, #f97316, #dc2626);
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        width: 100%;
+        padding: 0.5rem 1rem;
+    }
+    
+    .stButton > button:hover {
+        background: linear-gradient(90deg, #ea580c, #b91c1c);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .stButton > button:focus {
+        box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.3);
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -180,9 +202,11 @@ nav_pages = [
 # Create navigation buttons
 for page_name, col in nav_pages:
     with col:
-        if st.button(page_name, key=f"nav_{page_name}", use_container_width=True):
+        # Highlight the current page
+        button_type = "primary" if st.session_state.current_page == page_name else "secondary"
+        if st.button(page_name, key=f"nav_{page_name}", use_container_width=True, type=button_type):
             st.session_state.current_page = page_name
-            st.experimental_rerun()
+            st.rerun()
 
 # Export button
 with export_col:
@@ -253,7 +277,7 @@ if page == "🔥 Firing Log":
                     if st.button(f"Apply {zone.title()}", key=f"apply_{zone}"):
                         st.session_state.zone_offsets[zone] = suggestions[zone]
                         st.success(f"Applied {zone} zone suggestion!")
-                        st.experimental_rerun()
+                        st.rerun()
     
     # Add new firing form
     st.subheader("➕ Log New Firing")
@@ -326,7 +350,7 @@ if page == "🔥 Firing Log":
                 st.session_state.hardware[component]['firing_count'] += 1
             
             st.success("✅ Firing logged successfully!")
-            st.experimental_rerun()
+            st.rerun()
     
     # Recent firings display
     st.subheader("📋 Recent Firings")
