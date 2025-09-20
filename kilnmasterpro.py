@@ -206,7 +206,6 @@ for page_name, col in nav_pages:
         button_type = "primary" if st.session_state.current_page == page_name else "secondary"
         if st.button(page_name, key=f"nav_{page_name}", use_container_width=True, type=button_type):
             st.session_state.current_page = page_name
-            st.rerun()
 
 # Export button
 with export_col:
@@ -277,7 +276,6 @@ if page == "🔥 Firing Log":
                     if st.button(f"Apply {zone.title()}", key=f"apply_{zone}"):
                         st.session_state.zone_offsets[zone] = suggestions[zone]
                         st.success(f"Applied {zone} zone suggestion!")
-                        st.rerun()
     
     # Add new firing form
     st.subheader("➕ Log New Firing")
@@ -350,7 +348,6 @@ if page == "🔥 Firing Log":
                 st.session_state.hardware[component]['firing_count'] += 1
             
             st.success("✅ Firing logged successfully!")
-            st.rerun()
     
     # Recent firings display
     st.subheader("📋 Recent Firings")
@@ -492,7 +489,6 @@ elif page == "⚙️ Programs":
             
             st.session_state.programs.append(new_program)
             st.success("✅ Program saved successfully!")
-            st.experimental_rerun()
     
     # Display saved programs
     st.subheader("📚 Saved Programs")
