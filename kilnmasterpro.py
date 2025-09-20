@@ -159,19 +159,44 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Sidebar navigation
-st.sidebar.title("🧭 Navigation")
-page = st.sidebar.selectbox(
-    "Choose a section:",
-    ["🔥 Firing Log", "🎯 Zone Control", "⚙️ Programs", "🔧 Maintenance", "📊 Analytics", "❓ Help", "ℹ️ About"]
-)
+# Initialize page state
+if 'current_page' not in st.session_state:
+    st.session_state.current_page = "🔥 Firing Log"
 
-# Export button in sidebar
-if st.sidebar.button("📥 Export Data"):
-    data_json = export_data()
-    b64 = base64.b64encode(data_json.encode()).decode()
-    href = f'<a href="data:application/json;base64,{b64}" download="kiln_data_{datetime.now().strftime("%Y%m%d")}.json">Download Kiln Data</a>'
-    st.sidebar.markdown(href, unsafe_allow_html=True)
+# Top navigation
+st.markdown("### 🧭 Navigation")
+nav_col1, nav_col2, nav_col3, nav_col4, nav_col5, nav_col6, nav_col7, export_col = st.columns([1,1,1,1,1,1,1,1])
+
+nav_pages = [
+    ("🔥 Firing Log", nav_col1),
+    ("🎯 Zone Control", nav_col2), 
+    ("⚙️ Programs", nav_col3),
+    ("🔧 Maintenance", nav_col4),
+    ("📊 Analytics", nav_col5),
+    ("❓ Help", nav_col6),
+    ("ℹ️ About", nav_col7)
+]
+
+# Create navigation buttons
+for page_name, col in nav_pages:
+    with col:
+        if st.button(page_name, key=f"nav_{page_name}", use_container_width=True):
+            st.session_state.current_page = page_name
+            st.experimental_rerun()
+
+# Export button
+with export_col:
+    if st.button("📥 Export Data", use_container_width=True):
+        data_json = export_data()
+        b64 = base64.b64encode(data_json.encode()).decode()
+        href = f'<a href="data:application/json;base64,{b64}" download="kiln_data_{datetime.now().strftime("%Y%m%d")}.json">Download Kiln Data</a>'
+        st.markdown(href, unsafe_allow_html=True)
+        st.success("✅ Click the link above to download your data!")
+
+# Get current page
+page = st.session_state.current_page
+
+st.divider()  # Add a visual separator between navigation and content
 
 # Main content based on selected page
 if page == "🔥 Firing Log":
