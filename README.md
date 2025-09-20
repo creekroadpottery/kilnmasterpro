@@ -4,12 +4,7 @@
 
 A comprehensive web application designed to help ceramic artists achieve consistent, professional firing results through data-driven kiln management.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Creek%20Road%20Pottery-orange)](https://creekroadpottery.com/kilnmaster/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/kilnmaster-pro.svg)](https://github.com/yourusername/kilnmaster-pro/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/yourusername/kilnmaster-pro.svg)](https://github.com/yourusername/kilnmaster-pro/issues)
 
-![KilnMaster Pro Screenshot](https://via.placeholder.com/800x400/f97316/ffffff?text=KilnMaster+Pro+Screenshot)
 
 ## 🎯 Features
 
