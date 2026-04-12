@@ -274,7 +274,7 @@ if "user" not in st.session_state or st.session_state.user is None:
             st.subheader("Welcome back!")
             email    = st.text_input("Email",    placeholder="your@email.com")
             password = st.text_input("Password", type="password")
-            submitted = st.form_submit_button("🔥 Sign In", use_container_width=True)
+            submitted = st.form_submit_button("🔥 Sign In", width="stretch")
             if submitted:
                 if not email or not password:
                     st.error("Please fill in both fields.")
@@ -297,7 +297,7 @@ if "user" not in st.session_state or st.session_state.user is None:
             password2  = st.text_input("Password",         type="password",
                                        help="At least 6 characters")
             password2b = st.text_input("Confirm Password", type="password")
-            submitted2 = st.form_submit_button("✨ Create Account", use_container_width=True)
+            submitted2 = st.form_submit_button("✨ Create Account", width="stretch")
             if submitted2:
                 if not all([email2, password2, password2b]):
                     st.error("Please fill in all fields.")
@@ -342,7 +342,7 @@ user = st.session_state.user
 with st.sidebar:
     st.markdown(f"### 👤 {user.email}")
     st.divider()
-    if st.button("🚪 Sign Out", use_container_width=True):
+    if st.button("🚪 Sign Out", width="stretch"):
         sign_out()
 
 # ============================================================
@@ -367,11 +367,11 @@ nav_pages = [
 for page_name, col in nav_pages:
     with col:
         btn_type = "primary" if st.session_state.current_page == page_name else "secondary"
-        if st.button(page_name, key=f"nav_{page_name}", use_container_width=True, type=btn_type):
+        if st.button(page_name, key=f"nav_{page_name}", width="stretch", type=btn_type):
             st.session_state.current_page = page_name
 
 with export_col:
-    if st.button("📥 Export Data", use_container_width=True):
+    if st.button("📥 Export Data", width="stretch"):
         b64  = base64.b64encode(export_data().encode()).decode()
         href = (f'<a href="data:application/json;base64,{b64}" '
                 f'download="kiln_data_{datetime.now().strftime("%Y%m%d")}.json">'
@@ -551,9 +551,9 @@ if page == "🔥 Firing Log":
 
                         save_col, cancel_col = st.columns(2)
                         with save_col:
-                            save_edit = st.form_submit_button("💾 Save Changes", use_container_width=True)
+                            save_edit = st.form_submit_button("💾 Save Changes", width="stretch")
                         with cancel_col:
-                            cancel_edit = st.form_submit_button("Cancel", use_container_width=True)
+                            cancel_edit = st.form_submit_button("Cancel", width="stretch")
 
                         if save_edit:
                             with st.spinner("Saving…"):
@@ -619,7 +619,7 @@ elif page == "🎯 Zone Control":
         if data:
             fig = px.line(pd.DataFrame(data), x='Date', y='Offset', color='Zone',
                           title="Zone Offset Trends", markers=True)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
 # ============================================================
 # PAGE: Programs
@@ -713,9 +713,9 @@ elif page == "⚙️ Programs":
 
                         save_col, cancel_col = st.columns(2)
                         with save_col:
-                            save_p   = st.form_submit_button("💾 Save Changes", use_container_width=True)
+                            save_p   = st.form_submit_button("💾 Save Changes", width="stretch")
                         with cancel_col:
-                            cancel_p = st.form_submit_button("Cancel", use_container_width=True)
+                            cancel_p = st.form_submit_button("Cancel", width="stretch")
 
                         if save_p:
                             with st.spinner("Saving…"):
@@ -826,7 +826,7 @@ elif page == "📊 Analytics":
                         data.append({'Date': f['date'], 'Zone': z.title(), 'Offset': zo.get(z,0)})
                 fig = px.line(pd.DataFrame(data), x='Date', y='Offset', color='Zone',
                               title="Zone Offset Trends (Last 10)", markers=True)
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width="stretch")
         with c2:
             tc = {}
             for f in firings:
@@ -835,7 +835,7 @@ elif page == "📊 Analytics":
             if tc:
                 fig = px.pie(values=list(tc.values()), names=list(tc.keys()),
                              title="Firing Type Distribution")
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width="stretch")
 
 # ============================================================
 # PAGE: Help
